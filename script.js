@@ -56,4 +56,4 @@ fetch(url)
 
 setTimeout(() => {
   location.reload();
-}, 10000);
+}, 3600000);

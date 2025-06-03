@@ -40,6 +40,7 @@ h1 {
   gap: 1.5rem;
   max-width: 1200px;
   margin: 5rem auto 0; /* <-- ajoute un espacement vers le haut */
+  margin-bottom: 5.5rem;
 }
 
 .carburant {
@@ -83,11 +84,11 @@ h1 {
 }
 
 footer {
-  margin-top: 3rem;
   font-size: 0.95rem;
   color: #666;
   border-top: 1px solid #333;
   padding-top: 1rem;
+  margin-top: 2.6rem;
 }
 
 /* Responsive adjustments */
