@@ -25,6 +25,7 @@ h1 {
 }
 
 .station-info {
+  margin-top: 2rem;
   margin-bottom: 2rem;
   font-size: 1.2rem;
   color: #ddd;
@@ -37,7 +38,7 @@ h1 {
   align-items: center;
   gap: 1.5rem;
   max-width: 1200px;
-  margin: 3rem auto 0; /* <-- ajoute un espacement vers le haut */
+  margin: 5rem auto 0; /* <-- ajoute un espacement vers le haut */
 }
 
 .carburant {
