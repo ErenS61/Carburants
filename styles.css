@@ -6,7 +6,7 @@ body {
 }
 
 body {
-  background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+  background: #1a1a1a;
   color: #ffffff;
   font-family: "Segoe UI", sans-serif;
   display: flex;
@@ -40,7 +40,7 @@ h1 {
   gap: 1.5rem;
   max-width: 1200px;
   margin: 5rem auto 0; /* <-- ajoute un espacement vers le haut */
-  margin-bottom: 5.5rem;
+  margin-bottom: 8.6rem;
 }
 
 .carburant {
@@ -83,12 +83,14 @@ h1 {
   color: #aaaaaa;
 }
 
-footer {
+.footer {
+  padding: 10px;
+  border-top: 1px solid #333;
   font-size: 0.95rem;
   color: #666;
-  border-top: 1px solid #333;
-  padding-top: 1rem;
-  margin-top: 2.6rem;
+  background: #1a1a1a;
+  display: flex;
+  justify-content: center; /* centre horizontalement */
 }
 
 /* Responsive adjustments */
