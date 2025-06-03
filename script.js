@@ -54,6 +54,23 @@ fetch(url)
     console.error("Erreur lors du chargement des données :", err);
   });
 
-setTimeout(() => {
+function actualiserALHeure() {
+  const maintenant = new Date();
+  const prochainHeure = new Date(maintenant);
+
+  // Passe à l'heure suivante
+  prochainHeure.setHours(maintenant.getHours() + 1);
+  prochainHeure.setMinutes(0, 0, 0);
+
+  const delai = prochainHeure.getTime() - maintenant.getTime();
+
+  setTimeout(() => {
+    location.reload(); // recharge la page
+  }, delai);
+}
+
+actualiserALHeure(); // appel initial
+
+/*setTimeout(() => {
   location.reload();
-}, 3600000);
+}, 3600000);*/
