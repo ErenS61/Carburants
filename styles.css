@@ -93,6 +93,61 @@ h1 {
   justify-content: center; /* centre horizontalement */
 }
 
+.rupture {
+  background: linear-gradient(160deg, #222, #333);
+  border: 2px solid red;
+  border-radius: 15px;
+  width: 260px;
+  padding: 1.8rem;
+  box-shadow: 0 0 20px #ff5555; /* même que .carburant */
+  transition: transform 0.25s;
+  animation: blink-border 1s infinite;
+  position: relative;
+}
+
+
+.rupture:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 20px #ff5555;
+}
+
+.rupture .type {
+  font-size: 1.6rem;
+  color: #ff5555;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.rupture .message {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff3333;
+}
+
+.rupture .maj {
+  font-size: 1.1rem;
+  color: #aaaaaa;
+  margin-top: 1.2rem;
+}
+
+
+@keyframes blink-border {
+  0%, 100% {
+    border-color: red;
+    box-shadow: 0 0 15px #ff000033;
+  }
+  50% {
+    border-color: #ff9999;
+    box-shadow: 0 0 20px #ff000099;
+  }
+}
+
+
+
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .carburant {
@@ -113,11 +168,43 @@ h1 {
     width: 80%;
     padding: 1.2rem;
   }
+
+  .rupture {
+    width: 75%;
+  }
+
+  .rupture .type {
+    font-size: 1.2rem;
+  }
+
+  .rupture .message {
+    font-size: 1.2rem;
+  }
+
+  .rupture .maj {
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
   .carburant {
     width: 80%;
+  }
+
+  .rupture {
+    width: 75%;
+  }
+
+  .rupture .type {
+    font-size: 1.2rem;
+  }
+
+  .rupture .message {
+    font-size: 1.3rem;
+  }
+
+  .rupture .maj {
+    font-size: 0.9rem;
   }
 
   .type {
