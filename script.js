@@ -1,5 +1,5 @@
 const url =
-  "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/prix-des-carburants-en-france-flux-instantane-v2/records?select=id%2C%20adresse%2C%20cp%2C%20ville%2C%20departement%2C%20region%2C%20gazole_prix%2C%20gazole_maj%2C%20e85_prix%2C%20e85_maj%2C%20gplc_prix%2C%20gplc_maj%2C%20e10_prix%2C%20e10_maj%2C%20sp98_prix%2C%20sp98_maj%2C%20sp95_prix%2C%20sp95_maj%2C%20carburants_indisponibles%2C%20carburants_rupture_temporaire&limit=1&refine=id%3A75014008&lang=fr&timezone=Europe%2FParis";
+  "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/prix-des-carburants-en-france-flux-instantane-v2/records?select=id%2C%20adresse%2C%20cp%2C%20ville%2C%20departement%2C%20region%2C%20gazole_prix%2C%20gazole_maj%2C%20e85_prix%2C%20e85_maj%2C%20gplc_prix%2C%20gplc_maj%2C%20e10_prix%2C%20e10_maj%2C%20sp98_prix%2C%20sp98_maj%2C%20sp95_prix%2C%20sp95_maj%2C%20carburants_indisponibles%2C%20carburants_rupture_temporaire&limit=1&refine=id%3A68200004&lang=fr&timezone=Europe%2FParis";
 
 const carburants = {
   gazole_prix: { nom: "Gazole (B7)", icone: "fa-solid fa-oil-can", couleur: "#cccc00", alias: "Gazole" },
