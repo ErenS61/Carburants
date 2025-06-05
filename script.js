@@ -64,7 +64,7 @@ fetch(url)
           <i class="${icone}" style="color: ${couleur}; margin-right: 0.5rem;"></i>${nom}
         </div>
         <div class="prix">${prix ? prix.toFixed(3) + " €" : "N/A"}</div>
-        <div class="maj">${majFormatted}</div>
+        <div class="maj">Dernière MàJ : ${majFormatted}</div>
       `;
       container.appendChild(block);
     }
