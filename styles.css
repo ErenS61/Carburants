@@ -27,37 +27,60 @@ h1 {
 
 .station-info {
   margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-size: 1.2rem;
   color: #ddd;
+}
+
+/* Menu déroulant */
+#stationSelector {
+  margin: 0 auto 2rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #555;
+  border-radius: 6px;
 }
 
 .carburant-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.5rem;
   max-width: 1200px;
-  margin: 5rem auto 0; /* <-- ajoute un espacement vers le haut */
-  margin-bottom: 7.7rem;
+  margin: 2rem auto 3.8rem;
 }
 
-.carburant {
+.carburant,
+.rupture {
   background: linear-gradient(160deg, #222, #333);
-  border: 2px solid #00ffcc;
   border-radius: 15px;
   width: 260px;
   padding: 1.8rem;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.carburant {
+  border: 2px solid #00ffcc;
   box-shadow: 0 0 15px #00ffcc33;
-  transition:
-    transform 0.25s,
-    box-shadow 0.25s;
 }
 
 .carburant:hover {
   transform: scale(1.06);
   box-shadow: 0 0 20px #00ffcc99;
+}
+
+.rupture {
+  border: 2px solid red;
+  box-shadow: 0 0 15px #ff000033;
+  animation: blink-border 1s infinite;
+}
+
+.rupture:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 20px #ff000099;
 }
 
 .type {
@@ -71,55 +94,15 @@ h1 {
   gap: 0.5rem;
 }
 
+.rupture .type {
+  color: #ff5555;
+}
+
 .prix {
   font-size: 2.6rem;
   font-weight: bold;
   margin-bottom: 0.4rem;
   color: #ffffff;
-}
-
-.maj {
-  font-size: 1.1rem;
-  color: #aaaaaa;
-}
-
-.footer {
-  padding: 10px;
-  border-top: 1px solid #333;
-  font-size: 0.95rem;
-  color: #666;
-  background: #1a1a1a;
-  display: flex;
-  justify-content: center; /* centre horizontalement */
-}
-
-.rupture {
-  background: linear-gradient(160deg, #222, #333);
-  border: 2px solid red;
-  border-radius: 15px;
-  width: 260px;
-  padding: 1.8rem;
-  box-shadow: 0 0 20px #ff5555; /* même que .carburant */
-  transition: transform 0.25s;
-  animation: blink-border 1s infinite;
-  position: relative;
-}
-
-
-.rupture:hover {
-  transform: scale(1.06);
-  box-shadow: 0 0 20px #ff5555;
-}
-
-.rupture .type {
-  font-size: 1.6rem;
-  color: #ff5555;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
 }
 
 .rupture .message {
@@ -128,13 +111,13 @@ h1 {
   color: #ff3333;
 }
 
-.rupture .maj {
+.maj {
   font-size: 1.1rem;
   color: #aaaaaa;
   margin-top: 1.2rem;
 }
 
-
+/* Clignotement de la bordure pour rupture */
 @keyframes blink-border {
   0%, 100% {
     border-color: red;
@@ -146,11 +129,20 @@ h1 {
   }
 }
 
-
+.footer {
+  padding: 10px;
+  border-top: 1px solid #333;
+  font-size: 0.95rem;
+  color: #666;
+  background: #1a1a1a;
+  display: flex;
+  justify-content: center;
+}
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
-  .carburant {
+  .carburant,
+  .rupture {
     width: 45%;
   }
 }
@@ -164,47 +156,14 @@ h1 {
     font-size: 1rem;
   }
 
-  .carburant {
+  #stationSelector {
+    font-size: 0.95rem;
+  }
+
+  .carburant,
+  .rupture {
     width: 80%;
     padding: 1.2rem;
-  }
-
-  .rupture {
-    width: 75%;
-  }
-
-  .rupture .type {
-    font-size: 1.2rem;
-  }
-
-  .rupture .message {
-    font-size: 1.2rem;
-  }
-
-  .rupture .maj {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .carburant {
-    width: 80%;
-  }
-
-  .rupture {
-    width: 75%;
-  }
-
-  .rupture .type {
-    font-size: 1.2rem;
-  }
-
-  .rupture .message {
-    font-size: 1.3rem;
-  }
-
-  .rupture .maj {
-    font-size: 0.9rem;
   }
 
   .type {
@@ -213,6 +172,34 @@ h1 {
 
   .prix {
     font-size: 1.8rem;
+  }
+
+  .rupture .message {
+    font-size: 1.3rem;
+  }
+
+  .maj {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carburant,
+  .rupture {
+    width: 80%;
+  }
+
+  .type,
+  .rupture .type {
+    font-size: 1.2rem;
+  }
+
+  .prix {
+    font-size: 1.6rem;
+  }
+
+  .rupture .message {
+    font-size: 1.2rem;
   }
 
   .maj {
