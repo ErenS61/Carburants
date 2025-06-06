@@ -1,8 +1,21 @@
 // Liste des stations disponibles
 const stations = [
+  // Carrefour
   { id: "68200004", nom: "Carrefour Mulhouse Dornach" },
-  { id: "68390004", nom: "A35 - Aire de Battenheim" },
-  { id: "68313001", nom: "Carrefour Illzach" }
+  { id: "68313001", nom: "Carrefour Mulhouse" },
+  { id: "68270001", nom: "Carrefour Wittenheim" },
+  
+  // E.Leclerc
+  { id: "68100002", nom: "E.Leclerc Mulhouse" },
+  { id: "68260001", nom: "E.Leclerc Kingersheim" },
+  
+  // Eni
+  { id: "68200023", nom: "Eni - Route de Belfort" },
+  { id: "68200025", nom: "Eni - Av. de Colmar" },
+  { id: "68110009", nom: "Eni Illzach" },
+  
+  // TotaEnergie
+  { id: "68390004", nom: "A35 - Aire de Battenheim" }
 ];
 
 // Récupération de l'ID depuis le localStorage ou valeur par défaut
