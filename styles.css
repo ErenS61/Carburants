@@ -59,6 +59,10 @@ h1 {
   border-radius: 15px;
   width: 260px;
   padding: 1.8rem;
+  min-height: 145px; /* ← C’est cette ligne */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   transition: transform 0.25s, box-shadow 0.25s;
 }
 
@@ -76,6 +80,10 @@ h1 {
   border: 2px solid red;
   box-shadow: 0 0 15px #ff000033;
   animation: blink-border 1s infinite;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .rupture:hover {
@@ -171,7 +179,7 @@ h1 {
   }
 
   .prix {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .rupture .message {
@@ -195,11 +203,11 @@ h1 {
   }
 
   .prix {
-    font-size: 1.6rem;
+    font-size: 2rem;
   }
 
   .rupture .message {
-    font-size: 1.2rem;
+    font-size: 1.6rem;
   }
 
   .maj {

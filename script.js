@@ -1,7 +1,8 @@
 // Liste des stations disponibles
 const stations = [
   { id: "68200004", nom: "Carrefour Mulhouse Dornach" },
-  { id: "68390004", nom: "A35 - Aire de Battenheim" }
+  { id: "68390004", nom: "A35 - Aire de Battenheim" },
+  { id: "68313001", nom: "Carrefour Illzach" }
 ];
 
 // Récupération de l'ID depuis le localStorage ou valeur par défaut
