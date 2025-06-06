@@ -179,7 +179,8 @@ h1 {
   }
 
   .prix {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    margin-top: 10px;
   }
 
   .rupture .message {
@@ -203,7 +204,8 @@ h1 {
   }
 
   .prix {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    margin-top: 10px;
   }
 
   .rupture .message {
