@@ -41,6 +41,10 @@ h1 {
   color: #ffffff;
   border: 1px solid #555;
   border-radius: 6px;
+  width: 260px; /* largeur fixe adaptée à ton design */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .carburant-container {
