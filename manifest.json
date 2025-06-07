@@ -1,21 +1,20 @@
 {
-  "name": "Carburants", // installation name
-  "short_name": "Carburants", // app title name
+  "name": "Carburants",
+  "short_name": "Carburants",
   "start_url": ".",
-  "theme_color": "#4287f5",
-  "background_color": "#ffffff",
+  "theme_color": "#1a1a1a",
+  "background_color": "#1a1a1a",
   "display": "standalone",
-  "icons":[
+  "icons": [
     {
-      "src":"image/apple-touch-icon-192x192.png",
+      "src": "image/apple-touch-icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src":"image/apple-touch-icon-512x512.png",
+      "src": "image/apple-touch-icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ]
-
 }
