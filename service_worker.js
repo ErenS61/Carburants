@@ -1,41 +1,38 @@
-const CACHE_NAME = "carburants-" + Date.now(); // Cache unique à chaque ouverture
+const DYNAMIC_CACHE_NAME = 'dynamic-carburants-v1';
 
-self.addEventListener("install", (e) => {
-  self.skipWaiting(); // Prend le contrôle immédiatement
+self.addEventListener('install', (e) => {
+  // Ne pas mettre en cache lors de l'installation
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (e) => {
   e.waitUntil(
-    caches
-      .keys()
-      .then((cacheNames) => {
-        // Supprime tous les anciens caches
-        return Promise.all(cacheNames.map((cache) => caches.delete(cache)));
-      })
-      .then(() => {
-        // Recrée un cache vierge
-        return caches.open(CACHE_NAME);
-      })
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          // Supprime TOUS les caches existants
+          return caches.delete(cache);
+        })
+      );
+    }).then(() => self.clients.claim())
   );
 });
 
-self.addEventListener("fetch", (e) => {
-  // Stratégie "Network First" + mise à jour du cache
-  e.respondWith(
-    fetch(e.request)
-      .then((networkResponse) => {
-        // Met à jour le cache en arrière-plan
-        caches.open(CACHE_NAME).then((cache) => cache.put(e.request, networkResponse.clone()));
-        return networkResponse;
-      })
-      .catch(() => caches.match(e.request)) // Fallback très rare
-  );
+self.addEventListener('fetch', (e) => {
+  // Stratégie "Network Only" (pas de cache)
+  e.respondWith(fetch(e.request));
 });
 
-// Dans le Service Worker
-self.addEventListener("fetch", (e) => {
-  if (e.request.url.includes("data.economie.gouv.fr")) {
-    // API toujours fraîche
+// Dans service_worker.js
+self.addEventListener('fetch', (e) => {
+  if (e.request.url.includes('data.economie.gouv.fr')) {
+    // Pas de cache pour l'API
     e.respondWith(fetch(e.request));
   } else {
-    // Assets statiques en cache
-    e.respondWith(caches.match(e.request).then((cached) => cached || fetch(e.request)));
+    // Cache rapide pour les assets
+    e.respondWith(
+      caches.match(e.request)
+        .then(cached => cached || fetch(e.request))
+    );
   }
 });
