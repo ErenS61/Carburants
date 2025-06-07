@@ -1,9 +1,20 @@
-// Vider tout cache existant au démarrage
-if ("caches" in window) {
+// Vider le cache à chaque démarrage
+if ("serviceWorker" in navigator && "caches" in window) {
   caches.keys().then((cacheNames) => {
-    cacheNames.forEach((cacheName) => caches.delete(cacheName));
+    cacheNames.forEach((cacheName) => {
+      caches.delete(cacheName);
+    });
   });
 }
+
+// Vider aussi le cache quand on change de station
+document.getElementById("stationSelector")?.addEventListener("change", () => {
+  caches.keys().then((cacheNames) => {
+    cacheNames.forEach((cacheName) => {
+      caches.delete(cacheName);
+    });
+  });
+});
 
 // Récupération de l'ID depuis le localStorage ou valeur par défaut
 let stationId = localStorage.getItem("stationId") || stations[0].id;
@@ -13,21 +24,10 @@ function createStationSelector() {
   const container = document.getElementById("stationSelectorContainer");
   const select = document.createElement("select");
   select.id = "stationSelector";
-
-  // Styles du selecteur
   select.style.margin = "1rem auto";
-  select.style.padding = "0.5rem 1rem";
+  select.style.padding = "0.5rem";
   select.style.fontSize = "1rem";
-  select.style.background = "#2a2a2a";
-  select.style.color = "#ffffff";
-  select.style.border = "1px solid #555";
-  select.style.borderRadius = "6px";
-  select.style.width = "260px";
-  select.style.textOverflow = "ellipsis";
-  select.style.whiteSpace = "nowrap";
-  select.style.overflow = "hidden";
 
-  // Remplissage des options
   stations.forEach(({ id, nom }) => {
     const option = document.createElement("option");
     option.value = id;
@@ -36,54 +36,53 @@ function createStationSelector() {
     select.appendChild(option);
   });
 
-  // Gestion du changement de station
   select.addEventListener("change", () => {
     localStorage.setItem("stationId", select.value);
-    window.location.reload(); // Rechargement complet pour appliquer les changements
+    location.reload();
   });
 
-  container.innerHTML = "";
+  container.innerHTML = ""; // clean if reloaded
   container.appendChild(select);
 }
 
-// Construction de l'URL API avec anti-cache
-function buildApiUrl(stationId) {
-  const baseUrl =
-    "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/prix-des-carburants-en-france-flux-instantane-v2/records";
-  const params = new URLSearchParams({
-    select: [
-      "id",
-      "adresse",
-      "cp",
-      "ville",
-      "departement",
-      "region",
-      "gazole_prix",
-      "gazole_maj",
-      "e85_prix",
-      "e85_maj",
-      "gplc_prix",
-      "gplc_maj",
-      "e10_prix",
-      "e10_maj",
-      "sp98_prix",
-      "sp98_maj",
-      "sp95_prix",
-      "sp95_maj",
-      "carburants_indisponibles",
-      "carburants_rupture_temporaire"
-    ].join(", "),
-    limit: "1",
-    refine: `id:${stationId}`,
-    lang: "fr",
-    timezone: "Europe/Paris",
-    _: Date.now().toString() // Anti-cache
-  });
+createStationSelector();
 
-  return `${baseUrl}?${params.toString()}`;
-}
+// Construction de l’URL API avec désactivation du cache
+const baseUrl =
+  "https://data.economie.gouv.fr/api/explore/v2.1/catalog/datasets/prix-des-carburants-en-france-flux-instantane-v2/records";
+const params = new URLSearchParams({
+  select: [
+    "id",
+    "adresse",
+    "cp",
+    "ville",
+    "departement",
+    "region",
+    "gazole_prix",
+    "gazole_maj",
+    "e85_prix",
+    "e85_maj",
+    "gplc_prix",
+    "gplc_maj",
+    "e10_prix",
+    "e10_maj",
+    "sp98_prix",
+    "sp98_maj",
+    "sp95_prix",
+    "sp95_maj",
+    "carburants_indisponibles",
+    "carburants_rupture_temporaire"
+  ].join(", "),
+  limit: "1",
+  refine: `id:${stationId}`,
+  lang: "fr",
+  timezone: "Europe/Paris",
+  _: Date.now().toString() // désactive le cache
+});
 
-// Données carburants avec icônes et couleurs
+const url = `${baseUrl}?${params.toString()}`;
+
+// Données carburants
 const carburants = {
   gazole_prix: { nom: "Gazole (B7)", icone: "fa-solid fa-oil-can", couleur: "#cccc00", alias: "Gazole" },
   e85_prix: { nom: "E85", icone: "fa-solid fa-leaf", couleur: "#33cc33", alias: "E85" },
@@ -93,31 +92,21 @@ const carburants = {
   sp95_prix: { nom: "SP95 (E5)", icone: "fa-solid fa-truck-pickup", couleur: "#66ccff", alias: "SP95" }
 };
 
-// Fonction principale pour charger et afficher les données
-async function loadAndDisplayData() {
-  try {
-    const url = buildApiUrl(stationId);
-    const response = await fetch(url, { cache: "no-store" });
-    const data = await response.json();
+// Récupération et affichage
+fetch(url, { cache: "no-store" })
+  .then((res) => res.json())
+  .then((data) => {
     const record = data.results[0];
-
-    // Mise à jour des infos de la station
     const stationInfo = document.getElementById("stationInfo");
-    if (stationInfo) {
-      stationInfo.innerHTML = `<strong>${record.adresse}</strong><br>${record.cp} ${record.ville}, ${record.departement}, ${record.region}`;
-    }
+    stationInfo.innerHTML = `<strong>${record.adresse}</strong><br>${record.cp} ${record.ville}, ${record.departement}, ${record.region}`;
 
-    // Mise à jour du titre
     const selectedStation = stations.find((s) => s.id === stationId);
     const pageTitle = document.getElementById("pageTitle");
     if (selectedStation && pageTitle) {
       pageTitle.textContent = `⛽ Prix Carburants - ${selectedStation.nom}`;
     }
 
-    // Affichage des carburants
     const container = document.getElementById("carburantContainer");
-    container.innerHTML = "";
-
     const indisponibles = record.carburants_indisponibles || [];
     const ruptures = record.carburants_rupture_temporaire || [];
 
@@ -166,39 +155,19 @@ async function loadAndDisplayData() {
       `;
       container.appendChild(block);
     }
-  } catch (err) {
+  })
+  .catch((err) => {
     console.error("Erreur lors du chargement des données :", err);
-    const container = document.getElementById("carburantContainer");
-    if (container) {
-      container.innerHTML = `<div class="error">Erreur de chargement des données. Veuillez réessayer.</div>`;
-    }
-  }
+  });
+
+// Mise à jour automatique à l'heure pile
+function actualiserALHeure() {
+  const maintenant = new Date();
+  const prochainHeure = new Date(maintenant);
+  prochainHeure.setHours(maintenant.getHours() + 1);
+  prochainHeure.setMinutes(0, 0, 0);
+  const delai = prochainHeure.getTime() - maintenant.getTime();
+  setTimeout(() => location.reload(), delai);
 }
 
-// Initialisation de l'application
-function initApp() {
-  createStationSelector();
-  loadAndDisplayData();
-
-  // Mise à jour automatique toutes les heures
-  setInterval(
-    () => {
-      window.location.reload();
-    },
-    60 * 60 * 1000
-  );
-}
-
-function refreshPage() {
-    location.reload(); // Rafraîchit la page
-}
-
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth" // Défilement fluide vers le haut
-    });
-}
-
-// Démarrer l'app
-initApp();
+actualiserALHeure();

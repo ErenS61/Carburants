@@ -1,28 +1,12 @@
 <!doctype html>
 <html lang="fr" dir="ltr">
   <head>
-    <!-- Métadonnées anti-cache -->
-    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-
     <!-- Métadonnées pour PWA et iPhone -->
-    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" />
-
-    <script>
-      // Charge dynamiquement stations.js en contournant tout cache
-      fetch(`./stations.js?nocache=${Date.now()}`)
-        .then((response) => response.text())
-        .then((code) => {
-          new Function(code)(); // Exécute le contenu
-          initApp(); // Lance l'app
-        });
-    </script>
-
     <title>Prix des Carburants</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="styles.css" />
@@ -60,29 +44,8 @@
       Données mises à jour automatiquement par le gouvernement français. <br />
       Les dates de mise à jour sont déclaratives et peuvent indiquer une mise à jour à venir.
     </div>
-
-    <!-- Conteneur pour les boutons flottants -->
-    <!-- Ajout du bouton Menu -->
-    <div class="floating-buttons">
-      <!-- Bouton pour rafraîchir la page -->
-      <button class="refresh-button" onclick="refreshPage()">
-        <i class="fa-solid fa-rotate-right"></i>
-      </button>
-
-      <!-- Bouton pour remonter en haut de la page -->
-      <button class="scroll-top-button" onclick="scrollToTop()">
-        <i class="fa-solid fa-caret-up"></i>
-      </button>
-    </div>
-
     <script src="stations.js"></script>
     <script src="script.js"></script>
     <script src="index.js"></script>
-
-    <script>
-      function initApp() {
-        // Votre code JS principal sera appelé ici
-      }
-    </script>
   </body>
 </html>
