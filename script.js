@@ -1,20 +1,26 @@
-// Vider le cache à chaque démarrage
-if ("serviceWorker" in navigator && "caches" in window) {
-  caches.keys().then((cacheNames) => {
-    cacheNames.forEach((cacheName) => {
-      caches.delete(cacheName);
+// Au chargement de la page
+window.addEventListener("load", () => {
+  if ("serviceWorker" in navigator) {
+    // 1. Vérifie les mises à jour
+    navigator.serviceWorker.ready.then((reg) => {
+      reg.update().then(() => {
+        console.log("Service Worker mis à jour");
+      });
     });
-  });
-}
 
-// Vider aussi le cache quand on change de station
-document.getElementById("stationSelector")?.addEventListener("change", () => {
-  caches.keys().then((cacheNames) => {
-    cacheNames.forEach((cacheName) => {
-      caches.delete(cacheName);
+    // 2. Recharge si nouveau SW détecté
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      window.location.reload();
     });
-  });
+  }
 });
+
+const isPWA = () => window.matchMedia("(display-mode: standalone)").matches;
+
+if (isPWA()) {
+  // En mode PWA, on force un nettoyage supplémentaire
+  caches.keys().then((keys) => keys.forEach((key) => caches.delete(key)));
+}
 
 // Récupération de l'ID depuis le localStorage ou valeur par défaut
 let stationId = localStorage.getItem("stationId") || stations[0].id;
