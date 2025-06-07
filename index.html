@@ -1,12 +1,28 @@
 <!doctype html>
 <html lang="fr" dir="ltr">
   <head>
+    <!-- Métadonnées anti-cache -->
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
     <!-- Métadonnées pour PWA et iPhone -->
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" />
+
+    <script>
+      // Charge dynamiquement stations.js en contournant tout cache
+      fetch(`./stations.js?nocache=${Date.now()}`)
+        .then((response) => response.text())
+        .then((code) => {
+          new Function(code)(); // Exécute le contenu
+          initApp(); // Lance l'app
+        });
+    </script>
+
     <title>Prix des Carburants</title>
     <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="styles.css" />
@@ -61,22 +77,12 @@
 
     <script src="stations.js"></script>
     <script src="script.js"></script>
+    <script src="index.js"></script>
 
     <script>
-      // Recharge la page si stations.js a changé
-      fetch("stations.js")
-        .then((r) => r.text())
-        .then((newContent) => {
-          const oldContent = localStorage.getItem("stationsJs");
-          if (oldContent && oldContent !== newContent) {
-            localStorage.setItem("stationsJs", newContent);
-            window.location.reload();
-          } else {
-            localStorage.setItem("stationsJs", newContent);
-          }
-        });
+      function initApp() {
+        // Votre code JS principal sera appelé ici
+      }
     </script>
-
-    <script src="index.js"></script>
   </body>
 </html>

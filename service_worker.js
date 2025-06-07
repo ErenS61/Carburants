@@ -1,38 +1,18 @@
-const DYNAMIC_CACHE_NAME = 'dynamic-carburants-v1';
-
+// Service Worker ultra-minimaliste
 self.addEventListener('install', (e) => {
-  // Ne pas mettre en cache lors de l'installation
-  self.skipWaiting();
+  self.skipWaiting(); // Prend contrôle immédiat
 });
 
 self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cache => {
-          // Supprime TOUS les caches existants
-          return caches.delete(cache);
-        })
-      );
-    }).then(() => self.clients.claim())
+  // Supprime tous les caches existants
+  caches.keys().then(cacheNames => {
+    return Promise.all(cacheNames.map(cache => caches.delete(cache)));
+  });
+});
+
+self.addEventListener('fetch', (e) => {
+  // Stratégie "Network Only" (pas de cache du tout)
+  e.respondWith(
+    fetch(e.request).catch(() => new Response('Erreur de connexion'))
   );
-});
-
-self.addEventListener('fetch', (e) => {
-  // Stratégie "Network Only" (pas de cache)
-  e.respondWith(fetch(e.request));
-});
-
-// Dans service_worker.js
-self.addEventListener('fetch', (e) => {
-  if (e.request.url.includes('data.economie.gouv.fr')) {
-    // Pas de cache pour l'API
-    e.respondWith(fetch(e.request));
-  } else {
-    // Cache rapide pour les assets
-    e.respondWith(
-      caches.match(e.request)
-        .then(cached => cached || fetch(e.request))
-    );
-  }
 });
