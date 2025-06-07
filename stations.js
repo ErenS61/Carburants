@@ -8,6 +8,7 @@ const stations = [
     // E.Leclerc
     { id: "68100002", nom: "E.Leclerc Mulhouse" },
     { id: "68260001", nom: "E.Leclerc Kingersheim" },
+    { id: "68170004", nom: "E.Leclerc Rixheim" },
 
     // Eni
     { id: "68200023", nom: "Eni - Route de Belfort" },
