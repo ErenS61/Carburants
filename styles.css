@@ -1,0 +1,250 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #1a1a1a;
+  color: #ffffff;
+  font-family: "Segoe UI", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  text-align: center;
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+}
+
+h1 {
+  color: #00ffcc;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  text-shadow: 0 0 10px #00ffcc55;
+}
+
+.station-info {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #ddd;
+}
+
+/* Menu déroulant */
+#stationSelector {
+  margin: 0 auto 2rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #555;
+  border-radius: 6px;
+  width: 260px; /* largeur fixe adaptée à ton design */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.carburant-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 2rem auto 3rem;
+}
+
+.carburant,
+.rupture {
+  background: linear-gradient(160deg, #222, #333);
+  border-radius: 15px;
+  width: 260px;
+  padding: 1.8rem;
+  min-height: 145px; /* ← C’est cette ligne */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.carburant {
+  border: 2px solid #00ffcc;
+  box-shadow: 0 0 15px #00ffcc33;
+}
+
+.carburant:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 20px #00ffcc99;
+}
+
+.rupture {
+  border: 2px solid red;
+  box-shadow: 0 0 15px #ff000033;
+  animation: blink-border 1s infinite;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.rupture:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 20px #ff000099;
+}
+
+.type {
+  font-size: 1.6rem;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.rupture .type {
+  color: #ff5555;
+}
+
+.prix {
+  font-size: 2.6rem;
+  font-weight: bold;
+  margin-bottom: 0.4rem;
+  color: #ffffff;
+}
+
+.rupture .message {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff3333;
+}
+
+.maj {
+  font-size: 1.1rem;
+  color: #aaaaaa;
+  margin-top: 1.2rem;
+}
+
+/* Clignotement de la bordure pour rupture */
+@keyframes blink-border {
+  0%, 100% {
+    border-color: red;
+    box-shadow: 0 0 15px #ff000033;
+  }
+  50% {
+    border-color: #ff9999;
+    box-shadow: 0 0 20px #ff000099;
+  }
+}
+
+.footer {
+  padding: 10px;
+  border-top: 1px solid #333;
+  font-size: 0.95rem;
+  color: #666;
+  background: #1a1a1a;
+  display: flex;
+  justify-content: center;
+}
+
+
+/* Style général pour les boutons flottants */
+.floating-buttons {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacement entre les boutons */
+    z-index: 9999;
+}
+
+.floating-buttons button {
+    background-color: rgba(128, 128, 128, 0.5); /* Gris avec transparence */
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+}
+
+.floating-buttons button:hover {
+    background-color: rgba(128, 128, 128, 0.8); /* Plus foncé au survol */
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .carburant,
+  .rupture {
+    width: 45%;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .station-info {
+    font-size: 1rem;
+  }
+
+  #stationSelector {
+    font-size: 0.95rem;
+  }
+
+  .carburant,
+  .rupture {
+    width: 80%;
+    padding: 1.2rem;
+  }
+
+  .type {
+    font-size: 1.2rem;
+  }
+
+  .prix {
+    font-size: 2.5rem;
+    margin-top: 10px;
+  }
+
+  .rupture .message {
+    font-size: 1.3rem;
+  }
+
+  .maj {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carburant,
+  .rupture {
+    width: 80%;
+  }
+
+  .type,
+  .rupture .type {
+    font-size: 1.2rem;
+  }
+
+  .prix {
+    font-size: 2.5rem;
+    margin-top: 10px;
+  }
+
+  .rupture .message {
+    font-size: 1.6rem;
+  }
+
+  .maj {
+    font-size: 0.85rem;
+  }
+}
