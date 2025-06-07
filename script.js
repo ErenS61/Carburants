@@ -171,3 +171,15 @@ function actualiserALHeure() {
 }
 
 actualiserALHeure();
+
+
+function refreshPage() {
+    location.reload(); // Rafraîchit la page
+}
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth" // Défilement fluide vers le haut
+    });
+}
