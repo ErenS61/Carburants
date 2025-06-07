@@ -61,6 +61,22 @@
 
     <script src="stations.js"></script>
     <script src="script.js"></script>
+
+    <script>
+      // Recharge la page si stations.js a changé
+      fetch("stations.js")
+        .then((r) => r.text())
+        .then((newContent) => {
+          const oldContent = localStorage.getItem("stationsJs");
+          if (oldContent && oldContent !== newContent) {
+            localStorage.setItem("stationsJs", newContent);
+            window.location.reload();
+          } else {
+            localStorage.setItem("stationsJs", newContent);
+          }
+        });
+    </script>
+
     <script src="index.js"></script>
   </body>
 </html>
