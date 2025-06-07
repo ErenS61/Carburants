@@ -1,6 +1,8 @@
 // Liste des stations disponibles
 const stations = [
     { id: "68180001", nom: "Hesso Horbourg-Wihr" },
+
+    { id: "68000006", nom: "Wintzenheim" },
     
     { id: "68400001", nom: "Super U Riedisheim" },
     
