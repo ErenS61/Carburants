@@ -1,9 +1,6 @@
 {
   "name": "Carburants",
   "short_name": "Carburants",
-  "start_url": "./?utm_source=pwa",
-  "scope": "/",
-  "display": "standalone",
   "start_url": ".",
   "theme_color": "#1a1a1a",
   "background_color": "#1a1a1a",
