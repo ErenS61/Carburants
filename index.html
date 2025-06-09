@@ -1,36 +1,9 @@
 <!doctype html>
-<html lang="fr" dir="ltr">
+<html lang="fr">
   <head>
-    <!-- Métadonnées pour PWA et iPhone -->
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Prix des Carburants</title>
-    <link rel="manifest" href="manifest.json" />
     <link rel="stylesheet" href="styles.css" />
-
-    <!-- Favicon et icônes -->
-    <link rel="icon" href="image/favicon.ico" />
-
-    <link rel="shortcut icon" href="image/shortcut-icon-16x16.ico" type="image/x-icon" />
-
-    <link rel="shortcut icon" href="image/shortcut-icon-32x32.png" type="image/x-icon" />
-
-    <!-- Apple Touch Icons pour iPhone/iPad -->
-    <link rel="apple-touch-icon" sizes="57x57" href="image/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="image/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="image/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="image/apple-touch-icon-114x114.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="image/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="image/apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="image/apple-touch-icon-152x152.png" />
-    <link rel="apple-touch-icon" sizes="167x167" href="image/apple-touch-icon-167x167.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon-180x180.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="image/apple-touch-icon-192x192.png" />
-    <link rel="apple-touch-icon" sizes="512x512" href="image/apple-touch-icon-512x512.png" />
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
   </head>
   <body>
@@ -44,39 +17,7 @@
       Données mises à jour automatiquement par le gouvernement français. <br />
       Les dates de mise à jour sont déclaratives et peuvent indiquer une mise à jour à venir.
     </div>
-
-    <!-- Conteneur pour les boutons flottants -->
-    <!-- Ajout du bouton Menu -->
-    <div class="floating-buttons">
-      <!-- Bouton pour rafraîchir la page -->
-      <button class="refresh-button" onclick="refreshPage()">
-        <i class="fa-solid fa-rotate-right"></i>
-      </button>
-
-      <!-- Bouton pour remonter en haut de la page -->
-      <button class="scroll-top-button" onclick="scrollToTop()">
-        <i class="fa-solid fa-caret-up"></i>
-      </button>
-    </div>
-
     <script src="stations.js"></script>
     <script src="script.js"></script>
-
-    <script>
-      // Recharge la page si stations.js a changé
-      fetch("stations.js")
-        .then((r) => r.text())
-        .then((newContent) => {
-          const oldContent = localStorage.getItem("stationsJs");
-          if (oldContent && oldContent !== newContent) {
-            localStorage.setItem("stationsJs", newContent);
-            window.location.reload();
-          } else {
-            localStorage.setItem("stationsJs", newContent);
-          }
-        });
-    </script>
-
-    <script src="index.js"></script>
   </body>
 </html>

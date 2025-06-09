@@ -1,21 +1,3 @@
-// Vider le cache à chaque démarrage
-if ("serviceWorker" in navigator && "caches" in window) {
-  caches.keys().then((cacheNames) => {
-    cacheNames.forEach((cacheName) => {
-      caches.delete(cacheName);
-    });
-  });
-}
-
-// Vider aussi le cache quand on change de station
-document.getElementById("stationSelector")?.addEventListener("change", () => {
-  caches.keys().then((cacheNames) => {
-    cacheNames.forEach((cacheName) => {
-      caches.delete(cacheName);
-    });
-  });
-});
-
 // Récupération de l'ID depuis le localStorage ou valeur par défaut
 let stationId = localStorage.getItem("stationId") || stations[0].id;
 
@@ -85,11 +67,11 @@ const url = `${baseUrl}?${params.toString()}`;
 // Données carburants
 const carburants = {
   gazole_prix: { nom: "Gazole (B7)", icone: "fa-solid fa-oil-can", couleur: "#cccc00", alias: "Gazole" },
-  e85_prix: { nom: "E85", icone: "fa-solid fa-leaf", couleur: "#33cc33", alias: "E85" },
-  gplc_prix: { nom: "GPLc (LPG)", icone: "fa-solid fa-fire", couleur: "#ff6600", alias: "GPLc" },
-  e10_prix: { nom: "SP95-E10", icone: "fa-solid fa-gas-pump", couleur: "#3399ff", alias: "E10" },
-  sp98_prix: { nom: "SP98 (E5)", icone: "fa-solid fa-car-side", couleur: "#ff3366", alias: "SP98" },
-  sp95_prix: { nom: "SP95 (E5)", icone: "fa-solid fa-truck-pickup", couleur: "#66ccff", alias: "SP95" }
+  e85_prix:    { nom: "E85",         icone: "fa-solid fa-leaf",     couleur: "#33cc33", alias: "E85" },
+  gplc_prix:   { nom: "GPLc (LPG)",  icone: "fa-solid fa-fire",     couleur: "#ff6600", alias: "GPLc" },
+  e10_prix:    { nom: "SP95-E10",    icone: "fa-solid fa-gas-pump", couleur: "#3399ff", alias: "E10" },
+  sp98_prix:   { nom: "SP98 (E5)",   icone: "fa-solid fa-car-side", couleur: "#ff3366", alias: "SP98" },
+  sp95_prix:   { nom: "SP95 (E5)",   icone: "fa-solid fa-truck-pickup", couleur: "#66ccff", alias: "SP95" }
 };
 
 // Récupération et affichage
@@ -100,7 +82,7 @@ fetch(url, { cache: "no-store" })
     const stationInfo = document.getElementById("stationInfo");
     stationInfo.innerHTML = `<strong>${record.adresse}</strong><br>${record.cp} ${record.ville}, ${record.departement}, ${record.region}`;
 
-    const selectedStation = stations.find((s) => s.id === stationId);
+    const selectedStation = stations.find(s => s.id === stationId);
     const pageTitle = document.getElementById("pageTitle");
     if (selectedStation && pageTitle) {
       pageTitle.textContent = `⛽ Prix Carburants - ${selectedStation.nom}`;
@@ -171,15 +153,3 @@ function actualiserALHeure() {
 }
 
 actualiserALHeure();
-
-
-function refreshPage() {
-    location.reload(); // Rafraîchit la page
-}
-
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth" // Défilement fluide vers le haut
-    });
-}
